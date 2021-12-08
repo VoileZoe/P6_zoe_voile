@@ -1,6 +1,7 @@
 const express = require("express");
 const helmet = require("helmet");
 const mongoose = require("mongoose");
+const authRoutes = require("./routes/auth");
 
 const app = express();
 
@@ -28,6 +29,8 @@ app.use((req, res, next) => {
   );
   next();
 });
+
+app.use("/api/auth", authRoutes);
 
 app.post("/api/sauces", (req, res, next) => {
   console.log(req.body);
