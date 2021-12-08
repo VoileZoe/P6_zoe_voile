@@ -1,6 +1,8 @@
 const express = require("express");
-const app = express();
+const helmet = require("helmet");
 const mongoose = require("mongoose");
+
+const app = express();
 
 mongoose
   .connect(
@@ -9,6 +11,8 @@ mongoose
   )
   .then(() => console.log("Connexion à MongoDB réussie !"))
   .catch((err) => console.log(err));
+
+app.use(helmet());
 
 app.use(express.json());
 
