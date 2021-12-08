@@ -2,6 +2,7 @@ const express = require("express");
 const helmet = require("helmet");
 const mongoose = require("mongoose");
 const authRoutes = require("./routes/auth");
+const sauceRoutes = require("./routes/sauce");
 
 mongoose
   .connect(
@@ -32,15 +33,6 @@ app.use((req, res, next) => {
 
 app.use("/api/auth", authRoutes);
 
-app.post("/api/sauces", (req, res, next) => {
-  console.log(req.body);
-  res.status(201).json({
-    message: "Sauce créée !",
-  });
-});
-
-app.get("/api/sauces", (req, res, next) => {
-  res.status(200).json(null);
-});
+app.use("/api/sauces", sauceRoutes);
 
 module.exports = app;
