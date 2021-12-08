@@ -3,8 +3,6 @@ const helmet = require("helmet");
 const mongoose = require("mongoose");
 const authRoutes = require("./routes/auth");
 
-const app = express();
-
 mongoose
   .connect(
     "mongodb+srv://ZVOCRStudent:jC8ywy4Mdm5uaGp@cluster0.op7yy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
@@ -12,6 +10,8 @@ mongoose
   )
   .then(() => console.log("Connexion à MongoDB réussie !"))
   .catch((err) => console.log(err));
+
+const app = express();
 
 app.use(helmet());
 
