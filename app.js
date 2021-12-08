@@ -1,6 +1,15 @@
 const express = require("express");
-
 const app = express();
+const mongoose = require("mongoose");
+
+mongoose
+  .connect(
+    "mongodb+srv://ZVOCRStudent:jC8ywy4Mdm5uaGp@cluster0.op7yy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    { useNewUrlParser: true, useUnifiedTopology: true }
+  )
+  .then(() => console.log("Connexion à MongoDB réussie !"))
+  .catch((err) => console.log(err));
+
 app.use(express.json());
 
 app.use((req, res, next) => {
