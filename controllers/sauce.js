@@ -14,7 +14,6 @@ exports.getOne = (req, res, next) => {
 };
 
 exports.createOne = (req, res, next) => {
-  console.log("coucou");
   const sauceObject = JSON.parse(req.body.sauce);
   delete sauceObject._id;
   const sauce = new Sauce({
@@ -28,18 +27,23 @@ exports.createOne = (req, res, next) => {
   sauce
     .save()
     .then(() => {
-      console.log("prout par exemple");
       res.status(201).json({ message: "Sauce enregistrée !" });
     })
     .catch((error) => {
-      console.log("rototo par exemple " + error);
-
-      res.status(400).json({ error: "caca" });
+      res.status(400).json({ error });
     });
 };
 
-// exports.updateOne = (req, res, next) => {};
+exports.updateOne = (req, res, next) => {
+  Sauce.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
+    .then(() => res.status(200).json({ message: "Sauce modifié !" }))
+    .catch((error) => res.status(400).json({ error }));
+};
 
-// exports.deleteOne = (req, res, next) => {};
+exports.deleteOne = (req, res, next) => {
+  Sauce.deleteOne({ _id: req.params.id })
+    .then(() => res.status(200).json({ message: "Sauce supprimé !" }))
+    .catch((error) => res.status(400).json({ error }));
+};
 
-// exports.setLike = (req, res, next) => {};
+exports.setLike = (req, res, next) => {};
