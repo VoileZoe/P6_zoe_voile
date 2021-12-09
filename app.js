@@ -3,6 +3,7 @@ const helmet = require("helmet");
 const mongoose = require("mongoose");
 const authRoutes = require("./routes/auth");
 const sauceRoutes = require("./routes/sauce");
+const path = require("path");
 
 mongoose
   .connect(
@@ -30,6 +31,8 @@ app.use((req, res, next) => {
   );
   next();
 });
+
+app.use("/images", express.static(path.join(__dirname, "images")));
 
 app.use("/api/auth", authRoutes);
 
