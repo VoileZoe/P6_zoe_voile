@@ -4,12 +4,14 @@ const mongoose = require("mongoose");
 const authRoutes = require("./routes/auth");
 const sauceRoutes = require("./routes/sauce");
 const path = require("path");
+const dotenv = require("dotenv");
+dotenv.config();
 
 mongoose
-  .connect(
-    "mongodb+srv://ZVOCRStudent:jC8ywy4Mdm5uaGp@cluster0.op7yy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-    { useNewUrlParser: true, useUnifiedTopology: true }
-  )
+  .connect(process.env.MG_KEY, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => console.log("Connexion à MongoDB réussie !"))
   .catch((err) => console.log(err));
 
