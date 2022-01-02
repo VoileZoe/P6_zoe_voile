@@ -17,10 +17,13 @@ mongoose
 
 const app = express();
 
+// helmet security
 app.use(helmet());
 
+// parse the request body
 app.use(express.json());
 
+// cors to accept requests from all origins
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -34,6 +37,7 @@ app.use((req, res, next) => {
   next();
 });
 
+// routes
 app.use("/images", express.static(path.join(__dirname, "images")));
 
 app.use("/api/auth", authRoutes);

@@ -1,7 +1,4 @@
 const Sauce = require("../models/sauce");
-const jwt = require("jsonwebtoken");
-const user = require("../models/user");
-const sauce = require("../models/sauce");
 const fs = require("fs");
 
 exports.getAll = (req, res, next) => {
@@ -104,6 +101,16 @@ exports.setLike = (req, res, next) => {
       }
       // unlike or undislike sauce
       else if (like == 0) {
+        if (
+          !sauce.usersDisliked.includes(userId) &&
+          !sauce.usersLiked.includes(userId)
+        ) {
+          res
+            .status(400)
+            .json({ message: "Impossible d'effectuer l'action !" });
+          return;
+        }
+
         if (sauce.usersDisliked.includes(userId)) {
           const index = sauce.usersDisliked.indexOf(userId);
           if (index != -1) {
@@ -120,16 +127,6 @@ exports.setLike = (req, res, next) => {
             sauce.usersLiked.splice(index, 1);
             message = "Sauce unlikée !";
           }
-        }
-
-        if (
-          !sauce.usersDisliked.includes(userId) &&
-          !sauce.usersLiked.includes(userId)
-        ) {
-          res
-            .status(400)
-            .json({ message: "Impossible d'effectuer l'action !" });
-          return;
         }
       }
       // else no action is valid
